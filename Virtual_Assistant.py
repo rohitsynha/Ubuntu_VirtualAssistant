@@ -120,6 +120,20 @@ def getPerson(text):
         if var+3 <= len(wordList) and wordList[var].lower() == 'who' and wordList[var+1].lower() == 'is':
             return wordList[var+2] + '' + wordList[var+3]
 
+def getDay():
+
+    now = datetime.datetime.today()
+
+    day1 = now.weekday()
+
+    days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday',
+            'Sunday']
+
+    out = days[day1]
+
+    return 'Today is {}'.format(out)
+
+
 while True:
 
     text = recordAudio()
@@ -140,5 +154,10 @@ while True:
             person = getPerson(text)
             wiki = wikipedia.summary(person, sentences=2)
             response = response + '' + wiki
+
+        #Check for day
+        if('day' in text.lower()):
+            response = response + '' + getDay()
+
 
         assistantResponse(response)
