@@ -21,7 +21,7 @@ def recordAudio():
 
     # open the microphone and start recording
     with sr.Microphone() as source:
-        print('Say Something')
+        print('Ramesh is ready! \U0001f600')
         audio = r.listen(source)
 
     # Use Google speech recognition
@@ -120,18 +120,18 @@ def getPerson(text):
         if var+3 <= len(wordList) and wordList[var].lower() == 'who' and wordList[var+1].lower() == 'is':
             return wordList[var+2] + '' + wordList[var+3]
 
-def getDay():
+# A Function to get todays weekday
+def getDay(text):
 
-    now = datetime.datetime.today()
+    from dateparser.search import search_dates
+    day = search_dates(text)
 
-    day1 = now.weekday()
+    day1 = day[0][1].weekday()
 
-    days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday',
-            'Sunday']
+    out1 = day[0][0]
+    out2 = calendar.day_name[day1]
 
-    out = days[day1]
-
-    return 'Today is {}'.format(out)
+    return '{} is {}'.format(out1, out2)
 
 
 while True:
@@ -157,7 +157,8 @@ while True:
 
         #Check for day
         if('day' in text.lower()):
-            response = response + '' + getDay()
+            day1 = getDay(text)
+            response = response + '' + day1
 
 
         assistantResponse(response)
