@@ -126,12 +126,14 @@ def getDay(text):
     from dateparser.search import search_dates
     day = search_dates(text)
 
-    day1 = day[0][1].weekday()
+    if day == None:
+        return 'Im sorry, I did not understand that'
+    else:
+        day1 = day[0][1].weekday()
+        out1 = day[0][0]
+        out2 = calendar.day_name[day1]
 
-    out1 = day[0][0]
-    out2 = calendar.day_name[day1]
-
-    return '{} is {}'.format(out1, out2)
+        return '{} is {}'.format(out1, out2)
 
 
 while True:
@@ -159,6 +161,9 @@ while True:
         if('day' in text.lower()):
             day1 = getDay(text)
             response = response + '' + day1
+
+        if response == '':
+            response = response + 'Wassup?'
 
 
         assistantResponse(response)
